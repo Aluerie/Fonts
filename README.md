@@ -18,19 +18,19 @@ Fonts I use across my projects, served through [jsDelivr](https://www.jsdelivr.c
 Link the stylesheet, then use the family names:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1/fonts.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1.x/fonts.css">
 ```
 
 ```css
 h1 { font-family: "Reaver", serif; font-weight: 600; }
 ```
 
-`@1` always serves the newest `1.x.x` release. Pin an exact version like `@1.1.0` when a page must never change.
+`@1.x` always serves the newest `1.x.x` release. Pin an exact version like `@1.1.0` when a page must never change.
 
 To avoid a flash of fallback text, preload the font the page shows first. The URL must match the one in `fonts.css`, and `crossorigin` is required even for public fonts:
 
 ```html
-<link rel="preload" href="https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1/reaver-semibold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1.x/reaver-semibold.woff2" as="font" type="font/woff2" crossorigin>
 ```
 
 ## 🐍 Python (Pillow)
@@ -41,7 +41,7 @@ from PIL import ImageFont
 font = ImageFont.truetype("reaver-semibold.otf", 32)
 ```
 
-Pillow needs a local file, so download it first from `https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1/<file>`.
+Pillow needs a local file, so download it first from `https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1.x/<file>`.
 
 ## 💻 Local install
 
@@ -65,7 +65,7 @@ Add a **Text (GDI+)** source, click **Select Font**, and pick the font by its fo
 Browser sources take CSS in the **Custom CSS** box. The simplest option doesn't need anything installed; it loads the fonts from the CDN (`@import` must be the first line):
 
 ```css
-@import url("https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1/fonts.css");
+@import url("https://cdn.jsdelivr.net/gh/Aluerie/Fonts@1.x/fonts.css");
 
 body { font-family: "Reaver", serif; font-weight: 600; }
 ```
@@ -102,9 +102,9 @@ git tag v1.2.0
 git push origin v1.2.0
 ```
 
-`@1` links pick up the new release within about a week. To update them right away, purge the cache at [jsdelivr.com/tools/purge](https://www.jsdelivr.com/tools/purge). Bump the major version (`v2.0.0`) only for breaking changes, such as renamed files or families; `@1` links then stay on the old fonts.
+`@1.x` links pick up the new release within about a week. To update them right away, purge the cache at [jsdelivr.com/tools/purge](https://www.jsdelivr.com/tools/purge). Bump the major version (`v2.0.0`) only for breaking changes, such as renamed files or families; `@1.x` links then stay on the old fonts.
 
-The original `v1` tag is kept so old `@v1` links keep working.
+Use `@1.x`, not `@1`: jsDelivr reads the original `v1` tag as version `1`, so `@1` matches that tag exactly instead of the newest `1.x.x`. The `v1` tag is kept so old `@v1` links keep working.
 
 ## 🙏 Credits
 
