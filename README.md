@@ -32,3 +32,12 @@ font = ImageFont.truetype("reaver-semibold.otf", 32)
 ```
 
 Pillow needs a local file, so download it first from `https://cdn.jsdelivr.net/gh/Aluerie/Fonts@v1/<file>`.
+
+## 🏷️ Releases
+
+jsDelivr caches tagged files permanently, so after changing any file, push a new tag (`v2`, `v3`, …) and update the links to it.
+
+## 🙏 Credits
+
+- Futura No2 D: © (URW)++ Design & Development.
+- Radiance and Reaver: © Valve Corporation, designed by YouWorkForThem (Reaver with Nicolas Massi). Licensed only for fan art under the Steam Subscriber Agreement.

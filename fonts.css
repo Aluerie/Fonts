@@ -1,7 +1,6 @@
 @font-face {
   font-family: "Futura No2 D";
-  src: url("futura-no2-demi-bold.woff2") format("woff2"),
-    url("futura-no2-demi-bold.ttf") format("truetype");
+  src: url("futura-no2-demi-bold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -9,8 +8,7 @@
 
 @font-face {
   font-family: "Radiance";
-  src: url("radiance-regular.woff2") format("woff2"),
-    url("radiance-regular.otf") format("opentype");
+  src: url("radiance-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,8 +16,7 @@
 
 @font-face {
   font-family: "Reaver";
-  src: url("reaver-regular.woff2") format("woff2"),
-    url("reaver-regular.otf") format("opentype");
+  src: url("reaver-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -27,8 +24,7 @@
 
 @font-face {
   font-family: "Reaver";
-  src: url("reaver-semibold.woff2") format("woff2"),
-    url("reaver-semibold.otf") format("opentype");
+  src: url("reaver-semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
