@@ -129,10 +129,10 @@ def build_preview() -> None:
 
 def build_readme_tables() -> None:
     """Fill the README between the fonts markers with the file and language tables."""
-    files = ["| Family | Weight | Files |", "|---|---|---|"]
+    files = ["| Family | Weight | Files |", "| --- | --- | --- |"]
     files += [f"| {font.family} | {font.weight} | `{font.file}`, `.woff2` |" for font in FONTS]
 
-    languages = ["| Font | " + " | ".join(LANGUAGES) + " |", "|---" * (len(LANGUAGES) + 1) + "|"]
+    languages = ["| Font | " + " | ".join(LANGUAGES) + " |", "|" + " --- |" * (len(LANGUAGES) + 1)]
     for font in FONTS:
         cmap = TTFont(ROOT / font.file).getBestCmap()
         marks = ["✅" if all(ord(c) in cmap for c in chars if c != " ") else "—" for chars in LANGUAGES.values()]
