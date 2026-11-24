@@ -8,7 +8,7 @@ jobs:
   purge:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Purge @<major>.x links for every served file
         run: |
           major="${GITHUB_REF_NAME#v}"
