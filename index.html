@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fonts</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #1b1f24;
+    --muted: #656d76;
+    --line: #d8dee4;
+    --accent: #b0412b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #13161a;
+      --card: #1b1f24;
+      --text: #f0f3f6;
+      --muted: #8b949e;
+      --line: #30363d;
+      --accent: #e5764f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 16px 64px;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 1000px; margin: 0 auto; }
+  h1 { margin: 0 0 4px; font: 600 2.4rem/1.1 "Reaver", Georgia, serif; }
+  header p { margin: 0 0 24px; color: var(--muted); }
+  a { color: var(--accent); }
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    align-items: center;
+    padding: 12px 0;
+    background: var(--bg);
+  }
+  .controls textarea {
+    flex: 1 1 320px;
+    min-width: 0;
+    min-height: 2.6em;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--text);
+    font: inherit;
+    resize: vertical;
+  }
+  .controls label { display: flex; gap: 8px; align-items: center; color: var(--muted); }
+  .controls output { min-width: 3.5ch; font-variant-numeric: tabular-nums; }
+  .samples { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 8px; }
+  .sample {
+    padding: 16px 20px 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+  }
+  .sample header { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin-bottom: 8px; }
+  .sample h2 { margin: 0; font: 600 0.95rem/1.3 system-ui, sans-serif; }
+  .sample code { color: var(--muted); font-size: 0.85rem; }
+  .sample p { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; line-height: 1.25; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Fonts</h1>
+    <p>Type below to preview every font. Usage and downloads: <a href="https://github.com/Aluerie/Fonts">github.com/Aluerie/Fonts</a></p>
+  </header>
+
+  <div class="controls">
+    <textarea id="text" rows="1" aria-label="Preview text">The quick brown fox jumps over the lazy dog 0123456789</textarea>
+    <label>Size <input id="size" type="range" min="12" max="120" value="40"> <output id="size-value">40px</output></label>
+  </div>
+
+  <section class="samples" id="samples"></section>
+</main>
+
+<script>
+  const text = document.getElementById("text");
+  const size = document.getElementById("size");
+  const sizeValue = document.getElementById("size-value");
+  const samples = document.getElementById("samples");
+
+  // One card per @font-face rule in fonts.css, so new fonts appear without editing this page.
+  const sheet = [...document.styleSheets].find((s) => s.href && s.href.endsWith("fonts.css"));
+  for (const rule of sheet.cssRules) {
+    if (!(rule instanceof CSSFontFaceRule)) continue;
+    const family = rule.style.getPropertyValue("font-family").replaceAll('"', "").trim();
+    const weight = rule.style.getPropertyValue("font-weight").trim() || "400";
+    const file = rule.style.getPropertyValue("src").match(/url\("?([^")]+)"?\)/)[1];
+
+    const card = document.createElement("article");
+    card.className = "sample";
+    card.innerHTML = "<header><h2></h2><code></code></header><p></p>";
+    card.querySelector("h2").textContent = `${family} · ${weight}`;
+    card.querySelector("code").textContent = file;
+    const p = card.querySelector("p");
+    p.style.fontFamily = `"${family}"`;
+    p.style.fontWeight = weight;
+    samples.append(card);
+  }
+
+  function update() {
+    sizeValue.textContent = `${size.value}px`;
+    for (const p of samples.querySelectorAll("p")) {
+      p.textContent = text.value;
+      p.style.fontSize = `${size.value}px`;
+    }
+  }
+  text.addEventListener("input", update);
+  size.addEventListener("input", update);
+  update();
+</script>
+</body>
+</html>

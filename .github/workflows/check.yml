@@ -1,0 +1,23 @@
+name: Check build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Run build.py
+        run: uv run --locked build.py
+      - name: Fail if generated files are out of date
+        run: |
+          git status --porcelain
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Generated files differ from the commit. Run 'uv run build.py' and commit the result."
+            git diff --stat
+            exit 1
+          fi

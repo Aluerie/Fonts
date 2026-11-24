@@ -1,0 +1,26 @@
+name: Purge jsDelivr cache
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Purge @<major>.x links for every served file
+        run: |
+          major="${GITHUB_REF_NAME#v}"
+          major="${major%%.*}"
+          status=0
+          for file in fonts.css preview.png *.woff2 *.ttf *.otf; do
+            url="https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@${major}.x/${file}"
+            if curl -fsS "$url" > /dev/null; then
+              echo "purged $url"
+            else
+              echo "::warning::failed to purge $url"
+              status=1
+            fi
+          done
+          exit $status
