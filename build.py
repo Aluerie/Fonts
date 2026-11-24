@@ -122,9 +122,15 @@ def build_preview() -> None:
         draw.text((pad, y + label_size + 10 * scale), SAMPLE, font=text, fill=TEXT_COLOR)
         y += row_height + row_gap
 
+    # PNG compression differs between platforms, so compare pixels rather than file bytes.
+    path = ROOT / "preview.png"
+    if path.exists():
+        with Image.open(path) as existing:
+            if existing.mode == image.mode and existing.size == image.size and existing.tobytes() == image.tobytes():
+                return
     buffer = BytesIO()
     image.save(buffer, "PNG", optimize=True)
-    write_if_changed(ROOT / "preview.png", buffer.getvalue())
+    write_if_changed(path, buffer.getvalue())
 
 
 def build_readme_tables() -> None:
