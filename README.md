@@ -101,7 +101,7 @@ body { font-family: "Reaver", serif; font-weight: 600; }
 uv run build.py
 ```
 
-A GitHub Action reruns the build on every push and fails if the committed files don't match its output. It skips `preview.png`, since text renders slightly differently on Linux.
+A GitHub Action reruns the build on every push and fails if the committed files don't match its output. It skips `preview.png`, since text renders slightly differently on Linux. Dependabot opens a pull request each month when a GitHub Action used here has a new release, and it is merged automatically once this check passes.
 
 The [demo page](https://aluerie.github.io/Fonts/) is `index.html`, served by GitHub Pages from `main`. It reads the font list from `fonts.css`, so new fonts show up there automatically.
 

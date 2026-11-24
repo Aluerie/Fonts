@@ -22,3 +22,18 @@ jobs:
             echo "::error::Generated files differ from the commit. Run 'uv run build.py' and commit the result."
             exit 1
           fi
+
+  # Merges Dependabot's action updates once the build check above passes.
+  automerge:
+    needs: check
+    if: github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Merge the pull request
+        run: gh pr merge --squash --delete-branch "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ github.token }}
